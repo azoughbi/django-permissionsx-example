@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% load avatar_tags %}
+
+{% block content %}
+<ul>
+{% for profile in object_list %}
+<li>{% avatar profile %} <a href="{{ profile.get_absolute_url }}">{{ profile.full_name }}</a></li>
+{% endfor %}
+</ul>
+{% endblock content %}

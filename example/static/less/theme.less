@@ -1,0 +1,163 @@
+html, body {
+    font-family: sans-serif;
+    padding: 1.8em 0;
+}
+
+///////////// Fonts
+
+.font-bold {
+    font-weight: 700;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.custom-font {
+    font-family: 'The Girl Next Door', cursive;
+}
+
+///////////// Utils
+
+.border-radius (@radius: 5px) {
+    border-radius: @radius;
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.margins {
+    margin: 2em 0 1em;
+}
+
+///////////// Tree
+
+.topic-tree-action {
+    font-size: 85%;
+    margin: 5px;
+}
+
+.topic-tree-add:hover {
+    color: #0f0;
+}
+
+.topic-tree-delete:hover {
+    color: #f00;
+}
+
+.topic-tree-edit:hover {
+    color: #fa0;
+}
+
+.jqtree-element {
+    border-bottom: 1px solid #aaa;
+}
+
+.topic-tree-root {
+    padding: 4px;
+    background: #eee;
+}
+
+.jqtree-element:hover {
+    background: #eea;
+}
+
+///////////// Content
+
+div > div[class*="col-"] {
+    padding: 0;
+}
+
+a {
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+h3 {
+    color: rgb(70, 140, 190);
+    .uppercase;
+    .custom-font;
+    .font-bold;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-size: 18px;
+}
+
+.navbar-default {
+    background: #fff;
+    border: 0;
+}
+
+#main-navbar {
+    input, button {
+        border-radius: 0;
+    }
+    button {
+        background-color: rgb(150, 150, 178);
+        color: #fff;
+        margin-left: -5px;
+    }
+}
+
+.topics {
+    .uppercase;
+    .custom-font;
+    a {
+        color: #000;
+        &:hover {
+            color: #faa;
+        }
+        img {
+            margin-right: 5px;
+        }
+    }
+    .text-muted {
+        color: #aaa;
+    }
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+a.profile img {
+    margin-bottom: 3px;
+    .border-radius()
+}
+
+.utilities {
+    .custom-font;
+    a {
+        img {
+            margin-right: 4px;
+        }
+    }
+    li {
+        height: 32px;
+        line-height: 32px;
+    }
+}
+
+#comment-content {
+    width: 100%;
+}
+
+#home-logo {
+    .font-bold;
+    .custom-font;
+    font-size: 48px;
+    color: #f77;
+}
+
+#current-date {
+    font-size: 14px;
+    .custom-font;
+    margin: 10px 0;
+    letter-spacing: 2px;
+}

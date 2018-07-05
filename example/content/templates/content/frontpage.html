@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load sekizai_tags %}
+{% load avatar_tags %}
+{% load articles_tags %}
+
+{% block content %}
+{% addtoblock "css" %}
+        <link type="text/css" href="{% static "css/font-awesome.min.css" %}" rel="stylesheet">
+{% endaddtoblock %}
+<div class="row">
+    <div class="col-md-12">
+        <h3>Featured article</h3>
+        <h1>{{ last_article.title }} by {{ last_article.author.full_name }}</h1>
+        <p class="lead">{{ last_article.lead }}</p>
+        <a href="{{ last_article.get_absolute_url }}">Read the article &raquo;</a>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% extends "profiles/profile_base.html" %}
+
+{% load avatar_tags %}
+{% load bootstrap %}
+
+{% block tab_change_avatar %}active{% endblock %}
+
+{% block content %}
+    <p>Your current avatar:</p>
+    {% avatar user %}
+    {% if not avatars %}
+        <p>You haven't uploaded an avatar yet. Please upload one now.</p>
+    {% else %}
+        <form method="post" action="{% url 'avatar_change' %}">{% csrf_token %}
+            <ul>
+                {{ primary_avatar_form|bootstrap }}
+            </ul>
+            <p><input type="submit" name="change" value="Choose new Default" /></p>
+            <p><input type="submit" name="delete" value="Delete Selected" /></p>
+        </form>
+    {% endif %}
+    <form enctype="multipart/form-data" method="post" action="{% url 'avatar_change' %}">{% csrf_token %}
+        {{ upload_avatar_form|bootstrap }}
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit" name="add">Upload New Image</button>
+        </div>
+    </form>
+{% endblock %}

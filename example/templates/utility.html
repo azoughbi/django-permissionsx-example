@@ -1,0 +1,15 @@
+{% load avatar_tags %}
+                <ul class="utilities nav nav-pills pull-right">
+                    <li><a class="text-muted" href="{% url 'topic_list' %}">Browse topics</a></li>
+                    <li><a class="text-muted" href="{% url 'author_browse' %}">Browse authors</a></li>
+                {% if user.is_authenticated %}
+                    {% if user_is_author %}
+                    <li><a href="{% url 'article_authored' %}" class="btn-warning">Publishing</a></li>
+                    {% endif %}
+                    <li><a class="profile" href="{% url 'profile_settings' %}">{% avatar user 32 %}{{ user }}</a></li>
+                    <li><a href="{% url 'account_logout' %}">Sign out</a></li>
+                {% else %}
+                    <li><a href="{% url 'account_signup' %}">Sign Up!</a></li>
+                    <li><a href="{% url 'account_login' %}?next={{ request.path }}">Sign in</a></li>
+                {% endif %}
+                </ul>

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load avatar_tags %}
+
+{% block content %}
+<h3>{{ object.user.get_full_name }}</h3>
+<div class="row">
+    <div class="col-md-1">
+        {% avatar object 120 %}
+    </div>
+    <div class="col-md-8">
+        <ul>
+            {% if object.about_me %}<li>About: {{ object.about_me }}</li>{% endif %}
+        </ul>
+    </div>
+</div>
+<h4>Articles published by {{ object.full_name }}:</h4>
+<ul>
+{% for article in object.articles.published %}
+<li><a href="{{ article.get_absolute_url }}">{{ article }}</a></li>
+{% endfor %}
+</ul>
+{% endblock content %}

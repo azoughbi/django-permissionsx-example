@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block navigation %}
+<h3>{{ request.user.get_full_name }}</h3>
+<ul class="nav nav-tabs">
+    <li class="{% block tab_change_settings %}{% endblock %}"><a href="{% url 'profile_settings' %}">Update Details</a></li>
+    <li class="{% block tab_change_email %}{% endblock %}"><a href="{% url 'account_email' %}">Change E-mail</a></li>
+    <li class="{% block tab_change_password %}{% endblock %}"><a href="{% url 'account_change_password' %}">Change Password</a></li>
+    <li class="{% block tab_change_avatar %}{% endblock %}"><a href="{% url 'avatar_change' %}">Change Avatar</a></li>
+</ul>
+{% endblock navigation %}
+{% block content %}{% endblock content %}

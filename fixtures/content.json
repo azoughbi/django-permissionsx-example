@@ -1,0 +1,77 @@
+[
+{
+    "pk": 1,
+    "model": "content.comment",
+    "fields": {
+        "updated_datetime": "2014-01-27T00:13:09.153",
+        "created_datetime": "2014-01-27T00:13:09.153",
+        "content": "This is my comment.",
+        "user": 4,
+        "article": 1,
+        "is_blocked": false
+    }
+},
+{
+    "pk": 2,
+    "model": "content.comment",
+    "fields": {
+        "updated_datetime": "2014-01-27T00:28:22.164",
+        "created_datetime": "2014-01-27T00:27:35.485",
+        "content": "Editor's comment is next.",
+        "user": 2,
+        "article": 1,
+        "is_blocked": true
+    }
+},
+{
+    "pk": 1,
+    "model": "content.article",
+    "fields": {
+        "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae velit dictum leo rhoncus dapibus. Sed at neque vitae sem mollis bibendum. Suspendisse vestibulum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>\r\n<p>&nbsp;</p>\r\n<p>Nam erat orci, porttitor euismod, gravida vel, feugiat a, ipsum. Morbi mollis. Proin egestas nunc a mauris. Ut vulputate elit id leo. Morbi malesuada nisl congue nunc. Maecenas hendrerit elementum eros. Nunc odio nisl, semper sed, lacinia eu, tempus eu, mi. Nullam rutrum massa in risus. Nam non dui a ante feugiat vehicula. Nunc condimentum nibh commodo mauris ornare convallis. Maecenas eget arcu vitae mauris iaculis mattis. Nullam ut leo.</p>",
+        "published_datetime": "2014-01-26T23:55:06.405",
+        "lead": "This article was written by Mr. Editor. Morbi malesuada nisl congue nunc. Maecenas hendrerit elementum eros. Nunc odio nisl, semper sed, lacinia eu, tempus eu, mi. Nullam rutrum massa in risus.",
+        "title": "Editor's Great Article",
+        "created_datetime": "2014-01-26T23:55:06.407",
+        "author": 2,
+        "updated_datetime": "2014-01-26T23:59:01.103",
+        "topic": 1,
+        "slug": "editors-great-article",
+        "is_pending": false,
+        "is_published": true
+    }
+},
+{
+    "pk": 2,
+    "model": "content.article",
+    "fields": {
+        "content": "<p>Mauris placerat auctor mauris. Proin lacinia, libero sit amet commodo pellentesque, leo nisi mattis arcu, condimentum aliquet tortor elit cursus dolor. Aliquam eros. Etiam fringilla placerat ante. Etiam elit ipsum, sagittis vel, viverra aliquam, gravida faucibus, dui. Nunc augue lorem, rutrum ac, gravida eu, fermentum non, mi. Nulla facilisi. Phasellus blandit massa vel dolor. Aenean at augue. Sed semper. Sed id erat. Nam diam. Maecenas vel libero. Vivamus pharetra.</p>\r\n<p>Phasellus gravida fringilla enim. Aliquam turpis purus, bibendum ut, ornare id, rutrum sed, metus. Integer volutpat, ante interdum gravida fermentum, risus nulla feugiat ipsum, ut convallis turpis tortor vulputate arcu. Nullam tempus fermentum orci. Aliquam erat volutpat. Morbi ligula. Sed sit amet nisl a lectus sollicitudin vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultrices ligula vitae dui. Sed tellus magna, condimentum vitae, blandit a, consequat a, mauris. Phasellus nibh. Pellentesque consectetur commodo est. Vestibulum laoreet vulputate elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut ante eros, dictum sit amet, ultricies ultrices, gravida non, arcu.</p>",
+        "published_datetime": "2014-01-27T00:49:56.451",
+        "lead": "Proin lacinia, libero sit amet commodo pellentesque, leo nisi mattis arcu, condimentum aliquet tortor elit cursus dolor.",
+        "title": "Article on Nature",
+        "created_datetime": "2014-01-27T00:30:12.440",
+        "author": 3,
+        "updated_datetime": "2014-01-27T00:49:56.453",
+        "topic": 3,
+        "slug": "article-on-nature",
+        "is_pending": false,
+        "is_published": true
+    }
+},
+{
+    "pk": 3,
+    "model": "content.article",
+    "fields": {
+        "content": "<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas adipiscing magna id elit. Donec sit amet nibh. Proin lacinia lacus id tellus. Nam vulputate, sem ac tempus mattis, risus velit tempor ligula, quis adipiscing elit neque semper quam. Praesent imperdiet sapien vel est pulvinar consectetur. Donec eu felis eu tortor auctor varius. Sed interdum varius leo. Proin rutrum nunc eu risus. Praesent sed ipsum quis diam aliquam ultrices. Fusce rhoncus.</p>\r\n<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas adipiscing magna id elit. Donec sit amet nibh. Proin lacinia lacus id tellus. Nam vulputate, sem ac tempus mattis, risus velit tempor ligula, quis adipiscing elit neque semper quam. Praesent imperdiet sapien vel est pulvinar consectetur. Donec eu felis eu tortor auctor varius. Sed interdum varius leo. Proin rutrum nunc eu risus. Praesent sed ipsum quis diam aliquam ultrices. Fusce rhoncus.</p>",
+        "published_datetime": null,
+        "lead": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+        "title": "This article is draft",
+        "created_datetime": "2014-01-27T00:30:56.356",
+        "author": 3,
+        "updated_datetime": "2014-01-27T00:30:56.356",
+        "topic": 2,
+        "slug": "this-article-is-draft",
+        "is_pending": false,
+        "is_published": false
+    }
+}
+]

@@ -1,0 +1,91 @@
+{% load staticfiles %}
+{% load sekizai_tags %}
+{% load compress %}
+{% load articles_tags %}
+{% load permissionsx_tags %}
+{% load avatar_tags %}
+{% permissions 'example.profiles.permissions.AuthorPermissions' as user_is_author %}
+{% permissions 'example.profiles.permissions.StaffPermissions' as user_is_staff %}
+{% permissions 'example.profiles.permissions.AdministratorPermissions' as user_is_administrator %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% render_block "title" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lt IE 9]>
+        <script src="{% static "compatibility/html5shiv.js" %}"></script>
+        <script src="{% static "compatibility/respond.min.js" %}"></script>
+    <![endif]-->
+    <link type="text/css" href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    {% if debug %}
+        <link type="text/less" href="{% static "less/theme.less" %}" rel="stylesheet">
+        <script type="text/javascript">less = {}; less.env = 'development';</script>
+        <script src="{% static "less/js/less-1.4.1.min.js" %}"></script>
+    {% else %}
+        {% compress css %}
+        <link type="text/less" href="{% static "less/theme.less" %}" rel="stylesheet">
+        {% endcompress %}
+    {% endif %}
+    {% render_block "css" %}
+    <script src="{% static "jquery/jquery-2.0.3.min.js" %}"></script>
+    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+    <link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>
+    {% render_block "lib" %}
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %} alert-dismissable fade in">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div id="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div id="current-date" class="uppercase">{% now "l Y/m/d" %}</div>
+                </div>
+                <div class="col-md-8">
+                    {% include "utility.html" %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <header>
+                        <h1 class="text-muted"><a id="home-logo" href="{% url 'home' %}">Example</a></h3>
+                    </header>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                {% block navigation %}
+                    <nav class="navbar navbar-default" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div id="main-navbar" class="collapse navbar-collapse navbar-ex1-collapse no-padding">
+                            <ul class="topics nav navbar-nav">
+                                {% get_topics as topics %}
+                                {% for topic in topics %}
+                                <li><a href="{% url 'topic_detail' topic.slug %}">{% if topic.icon %}<img src="{{ topic.icon.url }}" class="img-circle">{% endif %}{{ topic }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </nav>
+                {% endblock navigation %}
+                </div>
+            </div>
+            {% block content %}{% endblock content %}
+        </div>
+    </div>
+    {% render_block "html" %}
+    {% render_block "js" %}
+</body>
+</html>

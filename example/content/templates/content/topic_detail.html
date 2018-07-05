@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load sekizai_tags %}
+
+{% block content %}
+<h3>{{ object }}</h3>
+
+<ul>
+{% for article in object.articles.published %}
+<li><a href="{{ article.get_absolute_url }}">{{ article }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock content %}

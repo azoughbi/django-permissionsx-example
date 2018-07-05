@@ -1,0 +1,194 @@
+[
+{
+    "pk": 1,
+    "model": "content.topic",
+    "fields": {
+        "rght": 8,
+        "parent": null,
+        "updated_datetime": "2014-01-26T23:31:51.362",
+        "created_datetime": "2014-01-26T23:19:54.964",
+        "level": 0,
+        "label": "Politics",
+        "lft": 1,
+        "tree_id": 3,
+        "slug": "politics",
+        "icon": "icons/icon_2.jpg"
+    }
+},
+{
+    "pk": 2,
+    "model": "content.topic",
+    "fields": {
+        "rght": 8,
+        "parent": null,
+        "updated_datetime": "2014-01-26T23:30:40.341",
+        "created_datetime": "2014-01-26T23:20:01.960",
+        "level": 0,
+        "label": "Lifestyle",
+        "lft": 1,
+        "tree_id": 1,
+        "slug": "leisure",
+        "icon": "icons/icon.jpg"
+    }
+},
+{
+    "pk": 3,
+    "model": "content.topic",
+    "fields": {
+        "rght": 8,
+        "parent": null,
+        "updated_datetime": "2014-01-26T23:31:44.054",
+        "created_datetime": "2014-01-26T23:20:56.466",
+        "level": 0,
+        "label": "Nature",
+        "lft": 1,
+        "tree_id": 2,
+        "slug": "nature",
+        "icon": "icons/icon_1.jpg"
+    }
+},
+{
+    "pk": 4,
+    "model": "content.topic",
+    "fields": {
+        "rght": 7,
+        "parent": 1,
+        "updated_datetime": "2014-01-26T23:22:12.770",
+        "created_datetime": "2014-01-26T23:22:12.770",
+        "level": 1,
+        "label": "Local",
+        "lft": 6,
+        "tree_id": 3,
+        "slug": "local",
+        "icon": ""
+    }
+},
+{
+    "pk": 5,
+    "model": "content.topic",
+    "fields": {
+        "rght": 5,
+        "parent": 1,
+        "updated_datetime": "2014-01-26T23:22:18.188",
+        "created_datetime": "2014-01-26T23:22:18.188",
+        "level": 1,
+        "label": "Global",
+        "lft": 4,
+        "tree_id": 3,
+        "slug": "global",
+        "icon": ""
+    }
+},
+{
+    "pk": 6,
+    "model": "content.topic",
+    "fields": {
+        "rght": 3,
+        "parent": 2,
+        "updated_datetime": "2014-01-26T23:22:32.059",
+        "created_datetime": "2014-01-26T23:22:32.059",
+        "level": 1,
+        "label": "Health",
+        "lft": 2,
+        "tree_id": 1,
+        "slug": "health",
+        "icon": ""
+    }
+},
+{
+    "pk": 7,
+    "model": "content.topic",
+    "fields": {
+        "rght": 7,
+        "parent": 2,
+        "updated_datetime": "2014-01-26T23:23:02.707",
+        "created_datetime": "2014-01-26T23:23:02.707",
+        "level": 1,
+        "label": "Trends",
+        "lft": 6,
+        "tree_id": 1,
+        "slug": "trends",
+        "icon": ""
+    }
+},
+{
+    "pk": 8,
+    "model": "content.topic",
+    "fields": {
+        "rght": 5,
+        "parent": 2,
+        "updated_datetime": "2014-01-26T23:23:10.684",
+        "created_datetime": "2014-01-26T23:23:10.684",
+        "level": 1,
+        "label": "Technology",
+        "lft": 4,
+        "tree_id": 1,
+        "slug": "technology",
+        "icon": ""
+    }
+},
+{
+    "pk": 9,
+    "model": "content.topic",
+    "fields": {
+        "rght": 3,
+        "parent": 3,
+        "updated_datetime": "2014-01-26T23:23:23.027",
+        "created_datetime": "2014-01-26T23:23:23.027",
+        "level": 1,
+        "label": "Discoveries",
+        "lft": 2,
+        "tree_id": 2,
+        "slug": "discoveries",
+        "icon": ""
+    }
+},
+{
+    "pk": 10,
+    "model": "content.topic",
+    "fields": {
+        "rght": 5,
+        "parent": 3,
+        "updated_datetime": "2014-01-26T23:23:26.862",
+        "created_datetime": "2014-01-26T23:23:26.862",
+        "level": 1,
+        "label": "Pictures",
+        "lft": 4,
+        "tree_id": 2,
+        "slug": "pictures",
+        "icon": ""
+    }
+},
+{
+    "pk": 11,
+    "model": "content.topic",
+    "fields": {
+        "rght": 7,
+        "parent": 3,
+        "updated_datetime": "2014-01-26T23:23:34.970",
+        "created_datetime": "2014-01-26T23:23:34.970",
+        "level": 1,
+        "label": "Science",
+        "lft": 6,
+        "tree_id": 2,
+        "slug": "science",
+        "icon": ""
+    }
+},
+{
+    "pk": 12,
+    "model": "content.topic",
+    "fields": {
+        "rght": 3,
+        "parent": 1,
+        "updated_datetime": "2014-01-26T23:23:56.579",
+        "created_datetime": "2014-01-26T23:23:56.579",
+        "level": 1,
+        "label": "Debate",
+        "lft": 2,
+        "tree_id": 3,
+        "slug": "debate",
+        "icon": ""
+    }
+}
+]

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block navigation %}
+
+<h4>Publishing Menu</h4>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#publishing-navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div id="publishing-navbar" class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+        {% if user_is_author or user_is_staff %}
+            <li class="{% block tab_articles %}{% endblock %}"><a href="{% url 'article_authored' %}">Articles</a></li>
+        {% endif %}
+        {% if user_is_staff %}
+            <li class="{% block tab_topics %}{% endblock %}"><a href="{% url 'topic_management' %}">Topics</a></li>
+        {% endif %}
+        {% if user_is_administrator %}
+            <li class="{% block tab_users %}{% endblock %}"><a href="{% url 'profile_list' %}">Users</a></li>
+        {% endif %}
+        </ul>
+    </div>
+</nav>
+{% block secondary-navigation %}{% endblock secondary-navigation %}
+{% endblock navigation %}
+
+{% block content %}{% endblock content %}

@@ -1,0 +1,56 @@
+{% extends "publishing.html" %}
+
+{% load permissionsx_tags %}
+
+{% block tab_articles %}active{% endblock %}
+
+{% block secondary-navigation %}
+<ul class="nav nav-tabs">
+    <li class="{% block tab_authored_articles %}{% endblock %}"><a href="{% url 'article_authored' %}">Authored Articles</a></li>
+    {% if user_is_staff %}
+    <li class="{% block tab_pending_articles %}{% endblock %}"><a href="{% url 'article_pending' %}">Pending Articles</a></li>
+    <li class="{% block tab_published_articles %}{% endblock %}"><a href="{% url 'article_published' %}">Published Articles</a></li>
+    {% endif %}
+</ul>
+{% endblock secondary-navigation %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+        <a href="{% url 'article_create' %}" class="margins btn btn-primary">Add Article</a>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Topic</th>
+                        <th>Pending</th>
+                        <th>Published</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
+                        <td>{{ object.author.first_name }} {{ object.author.last_name }}</td>
+                        <td>{{ object.topic }}</td>
+                        <td>{% if object.is_pending %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
+                        <td>{% if object.is_published %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
+                        <td>
+                            {% permissions "example.profiles.permissions.AuthorIfNotPublishedPermissions" slug=object.slug as can_change_object_granted %}
+                            {% if can_change_object_granted %}
+                            <a href="{% url 'article_update' object.slug %}" class="btn btn-success btn-sm">Edit</a>
+                            <a href="{% url 'article_delete' object.slug %}" class="btn btn-danger btn-sm">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

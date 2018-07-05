@@ -1,0 +1,12 @@
+{% extends "publishing.html" %}
+
+{% block content %}
+
+<form action="" method="post">{% csrf_token %}
+    Are you sure you want to delete "{{ object }}"?
+        <button type="submit" name="cancel" class="btn btn-default">Cancel</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </div>
+</form>
+
+{% endblock content %}

@@ -1,0 +1,286 @@
+{% extends "publishing.html" %}
+
+{% load staticfiles %}
+{% load sekizai_tags %}
+
+{% block tab_topics %}active{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div id="topic-tree-container" class="col-md-offset-2 col-md-8">
+        <span data-toggle="modal" href="#topic-tree-add" class="topic-tree-root topic-tree-add topic-tree-action glyphicon glyphicon-plus"></span>
+        <div id="topic-tree"></div>
+    </div>
+</div>
+<div class="modal fade" id="topic-tree-add" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add new topic</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="topic-tree-add-form" role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="topic-tree-new-name" placeholder="Topic name">
+                    </div>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success" id="topic-tree-add-submit">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="topic-tree-edit" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit topic</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="topic-tree-edit-form" role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="topic-tree-edit-name" name="label" placeholder="">
+                        <select id="topic-tree-edit-parent" name="parent">
+                            <option value=""></option>
+                        </select>
+                        <br>
+                        <img id="topic-tree-edit-icon">
+                        <input type="file" name="icon" id="icon">
+                    </div>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success" id="topic-tree-edit-submit">Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="topic-tree-delete" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Are you sure you want to delete "<span id="topic-tree-delete-name"></span>" topic?</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="topic-tree-delete-form" role="form">
+                    <div class="text-right">
+                        <button type="button" class="btn btn-success" id="topic-tree-delete-cancel" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger" id="topic-tree-delete-submit">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% addtoblock "lib" %}
+    <script src="{% static "jquery/tree.jquery.js" %}"></script>
+{% endaddtoblock %}
+{% addtoblock "css" %}
+    <link type="text/css" href="{% static "css/jqtree.css" %}" rel="stylesheet">
+{% endaddtoblock %}
+{% addtoblock "js" %}
+<script type="text/javascript">
+
+(function($) {
+    $.fn.serializeObject = function() {
+        var o = {};
+        var a = this.serializeArray({ checkboxesAsBools: true});
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+
+        return o;
+    };
+    $.fn.serializeArray = function(options) {
+        var o = $.extend({
+            checkboxesAsBools: false
+        }, options || {});
+
+        var rselectTextarea = /select|textarea/i;
+        var rinput = /text|hidden|password|search/i;
+
+        return this.map(function () {
+            return this.elements ? $.makeArray(this.elements) : this;
+        })
+        .filter(function () {
+            return this.name && !this.disabled &&
+                (this.checked
+                || (o.checkboxesAsBools && this.type === 'checkbox')
+                || rselectTextarea.test(this.nodeName)
+                || rinput.test(this.type));
+        })
+            .map(function (i, elem) {
+                var val = $(this).val();
+                return val == null ?
+                null :
+                $.isArray(val) ?
+                $.map(val, function (val, i) {
+                    return { name: elem.name, value: val };
+                }) :
+                {
+                    name: elem.name,
+                    value: (o.checkboxesAsBools && this.type === 'checkbox') ? //moar ternaries!
+                        (this.checked ? true : false) :
+                        val
+                };
+            }).get();
+    };
+})(jQuery);
+
+$(function() {
+    var renderedTreeDiv = $('#topic-tree').clone();
+    function loadTree(flush) {
+        if (flush) {
+            $('#topic-tree').remove();
+            $('.topic-tree-root').first().after(renderedTreeDiv);
+        }
+        $('#topic-tree-edit-parent').html('');
+        $('#topic-tree-edit-parent').append('<option value=""></option>');
+        $('#topic-tree').tree({
+            dataUrl: '/api/v1/topic/',
+            autoOpen: true,
+            selectable: false,
+            onCreateLi: function(node, $li) {
+                $li.find('.jqtree-element').append(
+                    '<span class="little-utility pull-right"><span data-toggle="modal" href="#topic-tree-add" data-node-id="'+ node.id +'" class="topic-tree-action topic-tree-add glyphicon glyphicon-plus"></span> <span data-toggle="modal" href="#topic-tree-delete" data-node-id="'+ node.id +'" class="topic-tree-action topic-tree-delete glyphicon glyphicon-remove"></span><span data-toggle="modal" href="#topic-tree-edit" data-node-id="'+ node.id +'" class="topic-tree-action topic-tree-edit glyphicon glyphicon-pencil"></span></span>'
+                );
+                $('#topic-tree-edit-parent').append('<option value="' + node.id + '">' + node.name + '</option>');
+            }
+        });
+    };
+    $('#topic-tree-add-form').on(
+        'submit',
+        function(e) {
+            var parentNodeId = $('#topic-tree-add-submit').data('add-to-node-id');
+            var parentNodeUrl = '/api/v1/topic/' + parentNodeId + '/';
+            var nodeData = {
+                label: $('#topic-tree-new-name').val(),
+            };
+            if (parentNodeId) {
+                nodeData['parent'] = parentNodeUrl;
+            };
+            $.ajax({
+                url: '/api/v1/topic/',
+                async: false,
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify(nodeData)
+            });
+            e.preventDefault();
+            loadTree(true);
+            $(this).parents('.modal').modal('hide');
+        }
+    );
+    $('#topic-tree-edit-form').on(
+        'submit',
+        function(e) {
+            var formElement = $('#topic-tree-edit-form');
+            var formData = formElement.serializeObject();
+            var nodeId = $('#topic-tree-edit-submit').data('edit-node-id');
+            var resourceUrl = '/api/v1/topic/' + nodeId + '/';
+            var makeCall = function() {
+                if (formData['parent'] != '') {
+                    formData['parent'] = '/api/v1/topic/' + formData['parent'] + '/';
+                }
+                $.ajax({
+                    url: resourceUrl,
+                    async: false,
+                    type: 'patch',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData)
+                });
+                loadTree(true);
+            }
+            var formFile = $(formElement).find('#icon')[0].files[0];
+            if (formFile) {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    formData['icon'] = reader.result;
+                    makeCall()
+                };
+                reader.readAsDataURL(formFile);
+            } else {
+                makeCall()
+            }
+            e.preventDefault();
+            $(this).parents('.modal').modal('hide');
+        }
+    );
+    $('#topic-tree-delete-form').on(
+        'submit',
+        function(e) {
+            var resourceUrl = '/api/v1/topic/' + $('#topic-tree-delete-submit').data('delete-node-id');
+            $.ajax({
+                url: resourceUrl,
+                async: false,
+                type: 'delete',
+                contentType: 'application/json',
+            });
+            e.preventDefault();
+            loadTree(true);
+            $(this).parents('.modal').modal('hide');
+        }
+    );
+    $('#topic-tree-container').delegate(
+        '.topic-tree-add', 'click',
+        function(e) {
+            var node = $('#topic-tree').tree('getNodeById', $(e.target).data('node-id'));
+            $('#topic-tree-new-name').val('');
+            if (node) {
+                $('#topic-tree-add-submit').data('add-to-node-id', node.id);
+            } else {
+                $('#topic-tree-add-submit').data('add-to-node-id', '');
+            };
+        }
+    );
+    $('#topic-tree-container').delegate(
+        '.topic-tree-edit', 'click',
+        function(e) {
+            var node = $('#topic-tree').tree('getNodeById', $(e.target).data('node-id'));
+            if (node) {
+                var parentNodeId = $('#topic-tree').tree('getNodeById', node.id).parent.id;
+                $('#topic-tree-edit-submit').data('edit-node-id', node.id);
+                $('#topic-tree-edit-name').val(node.name);
+                $('#topic-tree-edit-icon').attr('src', node.icon);
+                $('#topic-tree-edit-parent option[value="' + parentNodeId + '"]').prop('selected', true);
+            };
+        }
+    );
+    $('#topic-tree-container').delegate(
+        '.topic-tree-delete', 'click',
+        function(e) {
+            var node = $('#topic-tree').tree('getNodeById', $(e.target).data('node-id'));
+            if (node) {
+                $('#topic-tree-delete-submit').data('delete-node-id', node.id);
+                $('#topic-tree-delete-name').html(node.name);
+            }
+        }
+    );
+    $('#topic-tree-add').on('shown.bs.modal', function() {
+        $('#topic-tree-new-name').focus();
+    });
+    $('#topic-tree-delete').on('shown.bs.modal', function() {
+        $('#topic-tree-delete-cancel').focus();
+    });
+    $('#topic-tree-edit').on('shown.bs.modal', function() {
+        $('#topic-tree-edit-name').focus();
+    });
+    loadTree();
+});
+</script>
+{% endaddtoblock %}
+{% endblock content %}
